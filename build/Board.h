@@ -19,6 +19,17 @@ private:
 	std::vector <bar> mid;
 	std::vector <bar> right;
 	
+	void pickup();
+	void place();
+
+	void printHold();
+	void printBoarder();
+	void printCursor();
+	void printLeft();
+	void printMid();
+	void printRight();
+	void Print();
+	
 
 public:
 
@@ -27,13 +38,9 @@ public:
 	void SetBuffer(std::vector <char> buff) { this->buffer = buff; }
 	void update(char newcommand);
 
-	void Print();
+
 	
-	void printBoarder();
-	void printCursor();
-	void printLeft();
-	void printMid();
-	void printRight();
+
 
 };
 

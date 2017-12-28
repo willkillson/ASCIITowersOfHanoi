@@ -12,6 +12,20 @@ void Board::update(char newcommand)
 	{
 		cursorpos++;
 	}
+
+
+
+	if ((_currentCommand == ' ') && (hold == NULL))
+	{
+		if (cursorpos == 0)
+		{
+			//hold = left[0];
+			left.pop_back();
+		}
+	}
+
+
+
 	Print();
 }
 
@@ -22,10 +36,24 @@ void Board::Print()
 	printLeft();
 	printMid();
 	printRight();
+	printHold();
 	
 }
 
 
+
+void Board::pickup()
+{
+}
+
+void Board::place()
+{
+}
+
+void Board::printHold()
+{
+
+}
 
 void Board::printBoarder()
 {
@@ -189,7 +217,7 @@ Board::Board()
 
 	cursorpos = 0;
 
-
+	this->hold = NULL;
 	bar ten(10);
 	bar eight(8);
 	bar six(6);

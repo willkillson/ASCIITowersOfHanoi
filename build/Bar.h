@@ -10,7 +10,6 @@ private:
 	int _bcolor;
 
 public:
-
 	bar(int size) { this->SetSize(size); }
 	int GetSize() { return this->_size; }
 	int GetRColor() { return this->_rcolor; }
