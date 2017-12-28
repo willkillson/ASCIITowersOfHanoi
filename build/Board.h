@@ -11,6 +11,7 @@ class Board {
 private:
 	////
 	int cursorpos;
+	bool isWon;
 	char _currentCommand;
 	////
 	std::vector <char> buffer;
@@ -22,6 +23,9 @@ private:
 	void pickup();
 	void place();
 
+	
+	void clearbuff();
+	void printwin();
 	void printHold();
 	void printBoarder();
 	void printCursor();
@@ -34,6 +38,7 @@ private:
 public:
 
 	Board::Board();
+
 	std::vector <char> GetBuffer() { return this->buffer; }
 	void SetBuffer(std::vector <char> buff) { this->buffer = buff; }
 	void update(char newcommand);
