@@ -1,134 +1,210 @@
 #include "Board.h"
 
 
-
-void Board::MovCursor(int x, int y){
-
-
-	HANDLE hOut;
-	COORD Position;
-
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	Position.X = x;
-	Position.Y = y;
-	SetConsoleCursorPosition(hOut, Position);
-
-
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO info;
-	info.dwSize = 100;
-	info.bVisible = FALSE;
-	SetConsoleCursorInfo(consoleHandle, &info);
-	
-
-}
-
-
-void Board::PrintBoard()
+void Board::update(char newcommand)
 {
-
-
-	MovCursor(_menupos, 0);
-	std::cout << "====================";
-	MovCursor(_menupos, 1);
-	std::cout << "=    Hold Piece    =";
-	MovCursor(_menupos, 2);
-	std::cout << "=                  =";
-	MovCursor(_menupos, 3);
-	std::cout << "=                  =";
-	MovCursor(_menupos, 4);
-	std::cout << "=                  =";
-	MovCursor(_menupos, 5);
-	std::cout << "====================";
-
-
-	PrintLeft();
-
-}
-void Board::PrintLeft()
-{
-
-	MovCursor(_StackOneXPos, _StackOneYPos);
-	int movy = _StackOneYPos;
-
-	for (int i = 0; i < this->left.size(); i++)
+	this->_currentCommand = newcommand;
+	if ((_currentCommand == 'a')&&(cursorpos>0))
 	{
-		for (int j = 0; j < left[i].GetSize(); j++)
+		cursorpos--;
+	}
+	if ((_currentCommand == 'd') && (cursorpos<2))
+	{
+		cursorpos++;
+	}
+	Print();
+}
+
+void Board::Print()
+{
+	printBoarder();
+	printCursor();
+	printLeft();
+	printMid();
+	printRight();
+	
+}
+
+
+
+void Board::printBoarder()
+{
+
+	//2500
+
+	for (int i = 0; i < 2500; i++)
+	{
+		if ((i >= 20) && (i <= 20 + 20))
 		{
-			std::cout << "_";
+			this->buffer[i] = '=';
 		}
-		movy = movy + 1;
-		MovCursor(_StackOneXPos, movy);
+		if ((i == 20 + 100) || (i == 20 + 20 + 100))
+		{
+			this->buffer[i] = '=';
+		}
+
+		if (i == 20 + 105)
+		{
+			buffer[i] = 'H';
+			buffer[i + 1] = 'o';
+			buffer[i + 2] = 'l';
+			buffer[i + 3] = 'd';
+			buffer[i + 4] = ' ';
+			buffer[i + 5] = 'P';
+			buffer[i + 6] = 'i';
+			buffer[i + 7] = 'e';
+			buffer[i + 8] = 'c';
+			buffer[i + 9] = 'e';
+		}
+
+		if ((i == 20 + 200) || (i == 20 + 20 + 200))
+		{
+			this->buffer[i] = '=';
+		}
+		if ((i == 20 + 300) || (i == 20 + 20 + 300))
+		{
+			this->buffer[i] = '=';
+		}
+		if ((i >= 20 + 400) && (i <= 20 + 20 + 400))
+		{
+			this->buffer[i] = '=';
+		}
+	}
+
+}
+void Board::printCursor()
+{
+
+
+	if (cursorpos == 0)
+	{
+		this->buffer[800 + 5] = 'Y';
+		this->buffer[700 + 4] = '\\';
+		this->buffer[700 + 6] = '/';
+		this->buffer[600 + 5] = '|';
+
+
+	}
+	else {
+		this->buffer[800 + 5] = ' ';
+		this->buffer[700 + 4] = ' ';
+		this->buffer[700 + 6] = ' ';
+		this->buffer[600 + 5] = ' ';
 	}
 
 
 
+	if (cursorpos == 1)
+	{
+		this->buffer[820 + 5] = 'Y';
+		this->buffer[720 + 4] = '\\';
+		this->buffer[720 + 6] = '/';
+		this->buffer[620 + 5] = '|';
+
+
+	}
+	else
+	{
+		this->buffer[820 + 5] = ' ';
+		this->buffer[720 + 4] = ' ';
+		this->buffer[720 + 6] = ' ';
+		this->buffer[620 + 5] = ' ';
+	}
+
+
+	if (cursorpos == 2)
+	{
+		this->buffer[840 + 5] = 'Y';
+		this->buffer[740 + 4] = '\\';
+		this->buffer[740 + 6] = '/';
+		this->buffer[640 + 5] = '|';
+	}
+	else
+	{
+		this->buffer[840 + 5] = ' ';
+		this->buffer[740 + 4] = ' ';
+		this->buffer[740 + 6] = ' ';
+		this->buffer[640 + 5] = ' ';
+	}
+
 
 }
-void Board::PrintMid()
+
+void Board::printLeft()
 {
+
+	for (int i = 0; i < 2500; i++)
+	{
+		
+		if ((i ==  2005))
+		{
+			for (int m = 0; m < left.size(); m++) {
+				for (int j = 0; j < this->left[m].GetSize(); j++)
+				{
+					this->buffer[i + j-(100*m)] = '_';
+				}
+			}
+		}
+
+	}
+
 }
-void Board::PrintRight()
+void Board::printMid()
 {
+	for (int i = 0; i < 2500; i++)
+	{
+
+		if ((i == 2020))
+		{
+			for (int m = 0; m < mid.size(); m++) {
+				for (int j = 0; j < this->mid[m].GetSize(); j++)
+				{
+					this->buffer[i + j - (100 * m)] = '_';
+				}
+			}
+		}
+
+	}
+}
+void Board::printRight()
+{
+	for (int i = 0; i < 2500; i++)
+	{
+
+		if ((i == 2040))
+		{
+			for (int m = 0; m < right.size(); m++) {
+				for (int j = 0; j < this->right[m].GetSize(); j++)
+				{
+					this->buffer[i + j - (100 * m)] = '_';
+				}
+			}
+		}
+
+	}
 }
 
 Board::Board()
 {
 
-	this->_menupos = 20;
-	this->_StackOneYPos = 15;
-	this->_StackOneXPos = 5;
+	cursorpos = 0;
 
 
-	bar one(10);
-	bar two(8);
-	bar three(6);
+	bar ten(10);
+	bar eight(8);
+	bar six(6);
+	bar four(4);
+	bar two(2);
+	bar one(1);
 
 	left.push_back(one);
 	left.push_back(two);
-	left.push_back(three);
+	left.push_back(four);
+
+	mid.push_back(six);
+	mid.push_back(eight);
+
+	right.push_back(ten);
 }
 
 
-
-
-
-
-///////SAVE////////////////////////////////////////////////////////////////////////////////
-
-
-//
-//void afk()
-//{
-//
-//	int i = 0;
-//	int j = 0;
-//	char c = 'a';
-//	while (1) {
-//		for (i = 0; i < 100; i++)
-//		{
-//			for (j = 0; j < 100; j++)
-//			{
-//				MovCursor(i, j);
-//				std::cout << c;
-//			}
-//		}
-//		if (c == 'a')
-//		{
-//			c = 'f';
-//		}
-//		else if (c == 'f')
-//		{
-//			c = 'k';
-//		}
-//		else if (c == 'k')
-//		{
-//			c = 'a';
-//		}
-//
-//		i = 0;
-//		j = 0;
-//	}
-//}
-//

@@ -8,17 +8,15 @@ class Console {
 	
 public:
 	Console::Console();
-	void setBuffer(std::vector <char> buffer) { this->buff1 = buffer; }
-	void setCommand(char command) { this->_currentcommand = command; }
-
 	void MovCursor(int x, int y);
 	void printScreen();
 
+	void setBuffer(std::vector <char> buffer) { this->buff1 = buffer; }
+	std::vector <char> GetBuffer() { return this->buff1; }
 
-	char getCommand() { return this->_currentcommand; }
 private:
 	int linesize;
-	int _currentcommand;
+	int _newline;
 	std::vector <char> buff1;
 	std::vector <char> buff2;
 

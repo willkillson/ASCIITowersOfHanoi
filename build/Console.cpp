@@ -3,8 +3,8 @@
 Console::Console()
 {
 
-	this->linesize = 10;
-	this->_currentcommand = 0;
+	this->linesize = 50;
+	this->_newline = 100;//
 
 
 	for (int i = 0; i < linesize *linesize; i++)
@@ -17,7 +17,6 @@ Console::Console()
 		buff2.push_back('X');
 	}
 }
-
 void Console::MovCursor(int x, int y)
 {
 
@@ -38,24 +37,22 @@ void Console::MovCursor(int x, int y)
 	SetConsoleCursorInfo(consoleHandle, &info);
 
 }
-
 void Console::printScreen()
 {
 
 	//check if buff2 if different than buff1
 	//if so then print just for that spot
-	int squarescreensize = linesize*linesize;
+	int buffsize = linesize*linesize;
 
 
-	for (int i = 0; i < squarescreensize; i++)
+	for (int i = 0; i < buffsize; i++)
 	{
 		if (buff1[i] != buff2[i])
 		{
 
-			MovCursor(i%linesize, i / linesize);
+			MovCursor(i%this->_newline, i / this->_newline);
 			buff2[i] = buff1[i];
 			std::cout << buff2[i];
 		}
-
 	}
 }

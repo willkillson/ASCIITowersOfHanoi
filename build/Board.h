@@ -10,24 +10,30 @@ class Board {
 
 private:
 	////
-	int _menupos;
-	int _StackOneYPos;
-	int _StackOneXPos;
+	int cursorpos;
+	char _currentCommand;
 	////
+	std::vector <char> buffer;
 	bar *hold;
 	std::vector <bar> left;
 	std::vector <bar> mid;
 	std::vector <bar> right;
+	
 
 public:
+
 	Board::Board();
+	std::vector <char> GetBuffer() { return this->buffer; }
+	void SetBuffer(std::vector <char> buff) { this->buffer = buff; }
+	void update(char newcommand);
+
+	void Print();
 	
-	void update();
-	void MovCursor(int x, int y);
-	void PrintBoard();
-	void PrintLeft();
-	void PrintMid();
-	void PrintRight();
+	void printBoarder();
+	void printCursor();
+	void printLeft();
+	void printMid();
+	void printRight();
 
 };
 
