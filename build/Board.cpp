@@ -5,11 +5,11 @@ void Board::update(char newcommand)
 {
 	if (this->isWon == false) {
 		this->_currentCommand = newcommand;
-		if ((_currentCommand == 'a') && (cursorpos > 0))
+		if ((_currentCommand == 'a') && (cursorpos > 0))//cursor left
 		{
 			cursorpos--;
 		}
-		if ((_currentCommand == 'd') && (cursorpos < 2))
+		if ((_currentCommand == 'd') && (cursorpos < 2))//cursor right
 		{
 			cursorpos++;
 		}
@@ -18,81 +18,18 @@ void Board::update(char newcommand)
 
 		if ((_currentCommand == ' ') && (hold == NULL))//picking up a bar
 		{
-			if ((cursorpos == 0) && (left.size() != 0))
-			{
-				hold = &left[left.size() - 1];
-				left.pop_back();
-			}
-			if ((cursorpos == 1) && (mid.size() != 0))
-			{
-				hold = &mid[mid.size() - 1];
-				mid.pop_back();
-			}
-			if ((cursorpos == 2) && (right.size() != 0))
-			{
-				hold = &right[right.size() - 1];
-				right.pop_back();
-			}
+			this->pickup();
 		}
 		else if ((_currentCommand == ' ') && (hold != NULL))//placing a bar
 		{
-
-
-			if (cursorpos == 0)
-			{
-				if (left.size() == 0)
-				{
-					left.push_back(*hold);
-					this->hold = NULL;
-				}
-				else if (hold->GetSize() < left[left.size() - 1].GetSize())
-				{
-					left.push_back(*hold);
-					this->hold = NULL;
-				}
-			}
-
-			if (cursorpos == 1)
-			{
-				if (mid.size() == 0)
-				{
-					mid.push_back(*hold);
-					this->hold = NULL;
-				}
-				else if (hold->GetSize() < mid[mid.size() - 1].GetSize())
-				{
-					mid.push_back(*hold);
-					this->hold = NULL;
-				}
-			}
-
-			if (cursorpos == 2)
-			{
-				if (right.size() == 0)
-				{
-					right.push_back(*hold);
-					this->hold = NULL;
-				}
-				else if (hold->GetSize() < right[right.size() - 1].GetSize())
-				{
-					right.push_back(*hold);
-					this->hold = NULL;
-				}
-			}
+			this->place();
 		}
-
-
-
-
-		Print();
 		if (right.size() == 6)
 		{
 			isWon = true;
 		}
 	}
-	else {
-		printwin();
-	}
+	Print();
 }
 
 void Board::Print()
@@ -104,6 +41,10 @@ void Board::Print()
 	printMid();
 	printRight();
 	printHold();
+	if (isWon == true)
+	{
+		printwin();
+	}
 	
 }
 
@@ -111,10 +52,69 @@ void Board::Print()
 
 void Board::pickup()
 {
+
+	if ((cursorpos == 0) && (left.size() != 0))
+	{
+		hold = &left[left.size() - 1];
+		left.pop_back();
+	}
+	if ((cursorpos == 1) && (mid.size() != 0))
+	{
+		hold = &mid[mid.size() - 1];
+		mid.pop_back();
+	}
+	if ((cursorpos == 2) && (right.size() != 0))
+	{
+		hold = &right[right.size() - 1];
+		right.pop_back();
+	}
 }
 
 void Board::place()
 {
+
+
+	if (cursorpos == 0)
+	{
+		if (left.size() == 0)
+		{
+			left.push_back(*hold);
+			this->hold = NULL;
+		}
+		else if (hold->GetSize() < left[left.size() - 1].GetSize())
+		{
+			left.push_back(*hold);
+			this->hold = NULL;
+		}
+	}
+
+	if (cursorpos == 1)
+	{
+		if (mid.size() == 0)
+		{
+			mid.push_back(*hold);
+			this->hold = NULL;
+		}
+		else if (hold->GetSize() < mid[mid.size() - 1].GetSize())
+		{
+			mid.push_back(*hold);
+			this->hold = NULL;
+		}
+	}
+
+	if (cursorpos == 2)
+	{
+		if (right.size() == 0)
+		{
+			right.push_back(*hold);
+			this->hold = NULL;
+		}
+		else if (hold->GetSize() < right[right.size() - 1].GetSize())
+		{
+			right.push_back(*hold);
+			this->hold = NULL;
+		}
+	}
 }
 
 void Board::clearbuff()
