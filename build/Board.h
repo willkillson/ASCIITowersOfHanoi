@@ -13,18 +13,24 @@ private:
 	int cursorpos;
 	bool isWon;
 	char _currentCommand;
+	int level;
 	////
 	std::vector <char> buffer;
 	bar *hold;
 	std::vector <bar> left;
 	std::vector <bar> mid;
 	std::vector <bar> right;
+
+	void createLevel(int level);
 	
-	void pickup();
-	void place();
+	void updateCursorPos();
+	void updateBar();
+	void barPickup();
+	void barPlace();
 
 	
 	void clearbuff();
+	void printLevel();
 	void printwin();
 	void printHold();
 	void printBoarder();
