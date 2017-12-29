@@ -5,18 +5,10 @@ void Board::update(char newcommand)
 {
 
 		this->_currentCommand = newcommand;
-<<<<<<< HEAD
 		updateCursorPos();
 		updateBar();//depends on _currentCommand
 		Print();
 		if (right.size() == (level+1))
-=======
-		if ((_currentCommand == 'a') && (cursorpos > 0))//cursor left
-		{
-			cursorpos--;
-		}
-		if ((_currentCommand == 'd') && (cursorpos < 2))//cursor right
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 		{
 			isWon = true;
 			Print();
@@ -52,17 +44,12 @@ void Board::createLevel(int level)
 	if (this->left.size() > 0) {
 		for (int i = 0; i < left.size(); i++)
 		{
-<<<<<<< HEAD
 			left.erase(left.begin()+i);
-=======
-			this->pickup();
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 		}
 	}
 	if (this->mid.size() > 0) {
 		for (int i = 0; i < mid.size(); i++)
 		{
-<<<<<<< HEAD
 			mid.erase(mid.begin() + i);
 		}
 	}
@@ -112,36 +99,10 @@ void Board::updateCursorPos()
 		cursorpos++;
 	}
 
-=======
-			this->place();
-		}
-		if (right.size() == 6)
-		{
-			isWon = true;
-		}
-	}
-	Print();
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 }
 
 void Board::updateBar()
 {
-<<<<<<< HEAD
-=======
-	clearbuff();
-	printBoarder();
-	printCursor();
-	printLeft();
-	printMid();
-	printRight();
-	printHold();
-	if (isWon == true)
-	{
-		printwin();
-	}
-	
-}
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 
 
 
@@ -157,10 +118,6 @@ void Board::updateBar()
 
 void Board::barPickup()
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 	if ((cursorpos == 0) && (left.size() != 0))
 	{
 		hold = &left[left.size() - 1];
@@ -180,11 +137,6 @@ void Board::barPickup()
 
 void Board::barPlace()
 {
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 114eca02cbff378f0560d4e0320f7df27f3fe485
 	if (cursorpos == 0)
 	{
 		if (left.size() == 0)
