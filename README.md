@@ -7,6 +7,10 @@ Move the stack of bars from the left side, to the right side, but a bar can not 
 Hotkeys
 ________
 a - move cursor left
+________
 d - move cursor right
+________
 (space bar) - pick up bar
+________
 (space bar) - place bar
+________
